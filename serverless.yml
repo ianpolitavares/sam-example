@@ -1,0 +1,31 @@
+service: aws-python-project
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "lambda:*"
+          Resource:
+            - "*"
+
+  vpc:
+    securityGroupIds:
+      - sg-03df6a3e184a51412
+    subnetIds:
+      - subnet-0afba3fe60fa00801
+      - subnet-03c0c4af7e8ce8dbd
+
+  environment:
+    variable: value1
+    FIRST_NAME: "Gina"
+
+functions:
+  hello:
+    handler: handler.hello

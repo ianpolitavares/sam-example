@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  DevHello:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app/src
+      Handler: lambda_handler.hello
+      Runtime: python3.9
+      Timeout: 60
+      Policies: AWSLambdaExecute
+      Events:
+        DevHello:
+          Type: S3
+          Properties:
+            Bucket: !Ref SrcBucket
+            Events: s3:ObjectCreated:*
+
+  SrcBucket:
+    Type: AWS::S3::Bucket
